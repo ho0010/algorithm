@@ -1,22 +1,47 @@
-function solution(priorities, location) {
-  let queue = priorities.map((priority, index) => [priority, index]);
-  let answer = 0;
+function solution(bridge_length, weight, truck_weights) {
+  let movingTruck = [];
+  let nowTruckWeight = 0;
+  let totalCount = 0;
 
-  while (queue.length > 0) {
-    let [currentPriority, currentIndex] = queue.shift();
-    if (queue.some(([priority]) => priority > currentPriority)) {
-      queue.push([currentPriority, currentIndex]);
-    } else {
-      answer++;
-      if (currentIndex === location) {
-        return answer;
+  while (truck_weights.length != 0 || movingTruck.length != 0) {
+    for (let i = 0; i < movingTruck.length; i++) {
+      if (movingTruck[i][1] == bridge_length) {
+        movingTruck.shift();
       }
     }
+
+    let movingTruckSum = 0;
+    movingTruck.forEach((num) => {
+      movingTruckSum += num[0];
+    });
+
+    nowTruckWeight = truck_weights[0];
+
+    if (nowTruckWeight + movingTruckSum <= weight) {
+      movingTruck.push([nowTruckWeight, 0]);
+      truck_weights.shift();
+    }
+
+    totalCount++;
+    for (let i = 0; i < movingTruck.length; i++) {
+      movingTruck[i][1]++;
+    }
   }
-
-  return answer;
+  return totalCount;
 }
+solution(100, 100, [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]);
+// 대기 트럭 큐에서 하나씩 빼서 다리를 건너는 트럭 큐에 넣는 기능
 
-console.log(solution([1, 2, 3, 4, 5], 2));
-// 굳이 모든 요소를 정렬 시키는게 아니라
-// 구하는 것에 집중하면 구하는 것의 우선순위만 알아내면 되니까 그거에 집중해서 풀이
+// 다리를 다 건넌 트럭을 큐에서 빼는 기능
+
+// 대기 트럭 큐에서 가장 앞에 있는 요소 + 다리를 건너는 트럭 무게의 합 <= weight인지 확인하는 기능
+// 가능하면 넣기
+// 불가능하면 대기
+// 위 기능은 초단위로 진행될것임
+
+// 시간 counting하는 기능
+// 전체 시간 count
+// 다리에 올라간 각 요소 count => 배열을 안에 하나 더 만들어서 count?
+
+// 시작 15:30
+//
