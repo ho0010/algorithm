@@ -1,47 +1,41 @@
-function solution(bridge_length, weight, truck_weights) {
-  let movingTruck = [];
-  let nowTruckWeight = 0;
-  let totalCount = 0;
+function solution(scoville, K) {
+  var answer = 0;
+  let breakPoint = true;
 
-  while (truck_weights.length != 0 || movingTruck.length != 0) {
-    for (let i = 0; i < movingTruck.length; i++) {
-      if (movingTruck[i][1] == bridge_length) {
-        movingTruck.shift();
+  while (breakPoint) {
+    scoville.sort((a, b) => a - b);
+
+    if (scoville.length == 1) {
+      return -1;
+    }
+
+    for (let i = 0; i < scoville.length; i++) {
+      if (scoville[i] < K) {
+        break;
       }
+      breakPoint = false;
+
+      return answer;
     }
 
-    let movingTruckSum = 0;
-    movingTruck.forEach((num) => {
-      movingTruckSum += num[0];
-    });
+    let pushedNum = scoville[0] + 2 * scoville[1];
 
-    nowTruckWeight = truck_weights[0];
+    scoville.splice(0, 2);
 
-    if (nowTruckWeight + movingTruckSum <= weight) {
-      movingTruck.push([nowTruckWeight, 0]);
-      truck_weights.shift();
-    }
+    scoville.unshift(pushedNum);
+    scoville.sort((a, b) => a - b);
 
-    totalCount++;
-    for (let i = 0; i < movingTruck.length; i++) {
-      movingTruck[i][1]++;
-    }
+    answer++;
   }
-  return totalCount;
+
+  return answer;
 }
-solution(100, 100, [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]);
-// 대기 트럭 큐에서 하나씩 빼서 다리를 건너는 트럭 큐에 넣는 기능
+solution([1, 2, 3, 9, 10, 12], 7);
 
-// 다리를 다 건넌 트럭을 큐에서 빼는 기능
+// scoville 배열에 있는 모든 요소의 값이 k보다 크거나 같아야하는 조건을 만족시킬때까지 반복
 
-// 대기 트럭 큐에서 가장 앞에 있는 요소 + 다리를 건너는 트럭 무게의 합 <= weight인지 확인하는 기능
-// 가능하면 넣기
-// 불가능하면 대기
-// 위 기능은 초단위로 진행될것임
+// 배열을 오름차순으로 정렬해 => 문제의 방법으로 계산해 배열에 삽입
 
-// 시간 counting하는 기능
-// 전체 시간 count
-// 다리에 올라간 각 요소 count => 배열을 안에 하나 더 만들어서 count?
-
-// 시작 15:30
-//
+// 테케 2개가 틀리고
+// 효율성 문제가 있음
+// 최소 힙을 적용해야하는 것으로 보임..
