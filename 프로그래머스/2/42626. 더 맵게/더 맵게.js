@@ -1,4 +1,3 @@
-// 해당 문제는 Heap 구조를 활용해야 함
 class MinHeap {
   constructor() {
     this.heap = [];
@@ -7,8 +6,8 @@ class MinHeap {
   size() {
     return this.heap.length;
   }
-      
-    // 값을 넣되, 오름차 순 정렬함
+
+  // 값을 넣고 오름차순 정렬 => 트리의 높이만큼만 반복 = O(log n)
   push(value) {
     this.heap.push(value);
     let currentIndex = this.heap.length - 1;
@@ -24,7 +23,7 @@ class MinHeap {
     }
   }
 
-    // 값을 빼되, 오름차 순 정렬 함
+  // 값을 빼고 오름차순 정렬 => 트리의 높이만큼만 반복 = O(log n)
   pop() {
     if (this.heap.length === 0) return null;
     if (this.heap.length === 1) return this.heap.pop();
@@ -34,7 +33,11 @@ class MinHeap {
     let currentIndex = 0;
 
     while (currentIndex * 2 + 1 < this.heap.length) {
-      let minChildIndex = currentIndex * 2 + 2 < this.heap.length && this.heap[currentIndex * 2 + 2] < this.heap[currentIndex * 2 + 1] ? currentIndex * 2 + 2 : currentIndex * 2 + 1;
+      let minChildIndex =
+        currentIndex * 2 + 2 < this.heap.length &&
+        this.heap[currentIndex * 2 + 2] < this.heap[currentIndex * 2 + 1]
+          ? currentIndex * 2 + 2
+          : currentIndex * 2 + 1;
 
       if (this.heap[currentIndex] < this.heap[minChildIndex]) {
         break;
@@ -73,3 +76,5 @@ function solution(scoville, K) {
 
   return minHeap.peek() >= K ? mixedCount : -1;
 }
+
+// 해당 문제는 Heap 구조를 활용해야 함
