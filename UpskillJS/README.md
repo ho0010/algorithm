@@ -93,13 +93,89 @@ Big-O 표기법 - 특정한 알고리즘이 얼마나 효율적인지 수치적�
 
 - 삽입과 삭제에 있어서 O(1)을 보장할 수 있다.
 - 머리와 꼬리 두 개의 포인터를 가진다.
-- 머리 : 남아있는 원소 중 가장 먼저 들어온 데이터를 가르키는 포인터
-- 꼬리 : 남아있는 원소 중 가장 마지막으로 들어온 데이터를 가르키는 포인터
+- 머리: 남아있는 원소 중 가장 먼저 들어온 데이터를 가르키는 포인터
+- 꼬리: 남아있는 원소 중 가장 마지막으로 들어온 데이터를 가르키는 포인터
 - 삽입, 삭제 연산시에 각 포인터를 옮겨주면 된다.
 
 <img width="688" alt="image" src="https://github.com/user-attachments/assets/7cd5e3df-5f05-4f36-818d-a2adba29c2a7" />
 
 <img width="688" alt="image" src="https://github.com/user-attachments/assets/55f71dcb-a647-468c-8636-3d0feea8d25b" />
+
+## 트리와 우선순위 큐
+
+### 트리
+
+- 계층적인 구조를 표현
+- 루트 노드: 부모가 없는 최상위 노드
+- 단말 노드(leaf): 자식이 없는 노드
+- 부모와 자식 관계가 성립함
+- 형제 관계: 같은 부모를 가지는 노드
+
+<img width="531" alt="image" src="https://github.com/user-attachments/assets/39351ccc-5082-48d3-a665-ef951a13eb01" />
+
+- 이진 트리: 최대 2개의 자식을 가질 수 있는 트리
+- 포화 이진 트리: 리프 노드를 제외한 모든 노드가 두 자식을 가지고 있는 트리
+- 완전 이진 트리: 모든 노드가 왼쪽 자식부터 차근차근 채워진 트리
+- 높이 균형 트리: 왼쪽 자식 트리와 오른쪽 자식 트리의 높이가 1 이상 차이 나지 않는 트리
+
+
+### 우선순위 큐
+
+<img width="582" alt="image" src="https://github.com/user-attachments/assets/a89ac86b-afe0-4b87-824c-82b448a8b7bc" />
+
+<img width="582" alt="image" src="https://github.com/user-attachments/assets/637f45c9-17a9-4048-8e03-8d6d32885d45" />
+
+- 일반적인 형태의 큐는 선형적인 구조를 가진다.
+- 우선순위 큐는 이진트리 구조를 사용하는 것이 일반적이다.
+
+### 힙
+
+- 원소들 중에서 최댓값 혹은 최솟값은 빠르게 찾아낼 수 있는 자료구조다.
+- 최대 힙: 값이 큰 원소부터 추출한다.
+- 최소 힙: 값이 작은 원소부터 추출한다.
+- 힙은 원소의 삽입과 삭제를 위해 O(log N)의 수행 시간을 요구한다.
+- 단순한 N개의 데이터를 힙에 넣었다가 모두 꺼내는 작업은 정렬과 동일하다. 이 경우 시간 복잡도는 O(NlogN)이다.
+
+**최대 힙: 부모 노드가 자식 노드보다 값이 큰 완전 이진 트리**
+
+<img width="582" alt="image" src="https://github.com/user-attachments/assets/eec4a16e-7619-4b9d-871f-57c5aab05c70" />
+
+<img width="582" alt="image" src="https://github.com/user-attachments/assets/9d339dfe-ecd5-4945-92e5-e85db7cb95e5" />
+
+<img width="603" alt="image" src="https://github.com/user-attachments/assets/22dd88ee-21aa-4aa5-b215-1f41794a4115" />
+
+<img width="603" alt="image" src="https://github.com/user-attachments/assets/d232365f-b5c8-4624-8483-a0ea9ee64253" />
+
+<img width="603" alt="image" src="https://github.com/user-attachments/assets/59ddd9c8-ee49-40e4-a65e-ed11a628f4dd" />
+
+- 최단 경로 알고리즘 등에서 힙이 필요한 경우 별도의 라이브러리를 사용해야 한다.
+
+<img width="603" alt="image" src="https://github.com/user-attachments/assets/05ef378c-6739-495c-8df9-e63914956715" />
+
+## 그래프의 표현
+
+- 그래프란 사물을 정점과 간선으로 나타내기 위한 도구이다.
+- 두 가지 방식으로 구현할 수 있다.
+  - 인접 행렬: 2차원 배열을 사용하는 방식
+    <img width="603" alt="image" src="https://github.com/user-attachments/assets/afcd2c61-fd47-4297-b739-7e3dc60712d2" />
+    <img width="603" alt="image" src="https://github.com/user-attachments/assets/f7731d91-8d6a-4158-8880-f5b2c485fe37" />
+    <img width="603" alt="image" src="https://github.com/user-attachments/assets/adbfa2ea-55b3-4707-9dfc-1dee8a153311" />
+
+  - 인접 리스트: 연결 리스트를 이용하는 방식
+    <img width="603" alt="image" src="https://github.com/user-attachments/assets/8281c815-50be-49da-a923-666eb37c6651" />
+    <img width="621" alt="image" src="https://github.com/user-attachments/assets/8fd3222d-0da8-48df-baae-fcf30251c88e" />
+    <img width="621" alt="image" src="https://github.com/user-attachments/assets/685aae6f-b3dc-4d50-bdb9-9b2ca1fc679b" />
+
+<img width="621" alt="image" src="https://github.com/user-attachments/assets/bdfbab2c-f6d1-4b59-8edd-fa7a803b9ce9" />
+- 인접 행렬 vs 인접 리스트
+  
+최단 경로 알고리즘을 구현할 때, 어떤 자료구조가 유용할까?
+
+각각 근처의 노드와 연결되어 있는 경우가 많으므로, 간선 개수가 적어 인접 리스트가 유리하다.
+   
+
+  
+
 
 
 ---
