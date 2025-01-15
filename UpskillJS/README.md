@@ -232,5 +232,163 @@ function selectionSort(arr) {
 }
 ```
 
+## 2) 버블 정렬
+
+- 인접한 두 원소를 확인하여, 정렬이 안 되어 있다면 위치를 서로 변경한다.
+- 한 번의 단계가 수행되면, 가장 큰 원소가 맨 뒤로 이동한다. => 각 단계를 거칠 때마다 가장 큰 값을 하나씩 확실하게 결정하는 것으로 이해할 수 있다.
+- 그 다음 단계에서는 맨 뒤로 이동한 데이터는 정렬에서 제외한다.
+- 최악의 경우 시간 복잡도 O(N^2)을 보장한다.
+- 시간 복잡도 O(N^2)로 비효율적인 정렬 알고리즘 중 하나다.
+
+```js
+// 버블 정렬 함수
+function bubbleSort(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    for (let j = 0; j < i; j++) {
+      if (arr[j] < arr[j + 1]) { // 내림차순 정렬
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+}
+```
+
+## 3) 삽입 정렬
+
+- 각 숫자를 적절한 위치에 삽입하는 정렬 기법이다.
+- 각 단계에서 현재 원소가 삽입될 위치를 찾는다.
+- 적절한 위치에 도달할 때까지 반복적으로 왼쪽으로 이동한다.
+- 삽입 정렬을 수행할 때는 처음에 첫 번째 원소는 정렬이 되어 있다고 고려한다.
+- 매 단계에서 현재 처리 중인 원소가 삽입될 위치를 찾기 위해 약 N번의 연산이 필요하다.
+- 결과적으로 약 N개의 단계를 거친다는 점에서 최악의 경우 O(N^2)의 시간 복잡도를 가진다.
+
+```js
+// 삽입 정렬 함수
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    for (let j = i; j > 0; j--) {
+      // 인덱스 j부터 1씩 감소하며 반복
+      if (arr[j] < arr[j - 1]) {
+        // 한 칸씩 왼쪽으로 이동 (스왑)
+        let temp = arr[j];
+        arr[j] = arr[j - 1];
+        arr[j - 1] = temp;
+      } else {
+        // 자기보다 작은 데이터를 만나면 그 위치에서 멈춤
+        break;
+      }
+    }
+  }
+}
+
+```
+
+## 4) 병합 정렬
+
+- 전형적인 분할 정복 알고리즘이다.
+
+- 분할 정복(Divide and Conquer)
+  1. 분할: 큰 문제를 작은 부분 문제(쉬운 문제)로 분할한다.
+  2. 정복: 작은 부분 문제를 각각 해결한다.
+  3. 조합: 해결한 부분 문제의 답을 이용해 다시 큰 문제를 해결한다.
+     
+  - 일반적으로 재귀 함수를 이용해 구현한다.
+  - 그 이유는? 큰 문제를 작은 문제로 "분할하는 방식이 동일한" 경우가 많기 때문이다.
+  - 더 이상 쪼갤 수 없는 크기가 될 때까지 계속해 분할한다.
+
+  <img width="537" alt="image" src="https://github.com/user-attachments/assets/f55f2cdc-dd21-4a50-a342-a75d28dee307" />
+
+  - 단점: 일반적으로 재귀 함수를 사용한다는 점에서 함수 호출 횟수가 많이 발생한다. => 오버헤드로 이어진다.
+
+- 시간 복잡도 O(NlogN)을 보장하는 빠른 정렬 알고리즘 중 하나다.
+
+1. 분할: 정렬할 배열을 같은 크기의 부분 배열 2개로 분할한다.
+2. 정복: 부분 배열을 정렬한다.
+  - 각 부분 배열은 이미 정렬된 상태로 본다.
+  - 각 부분 배열에 대해 첫째 원소부터 시작해 하나씩 확인한다.
+  - 총 원소의 개수가 N개일 때, O(N)의 시간 복잡도가 요구된다.
+  <img width="537" alt="image" src="https://github.com/user-attachments/assets/7b555f46-295e-4b2d-80e8-2e72f6508f6f" />
+  <img width="588" alt="image" src="https://github.com/user-attachments/assets/7cfe90af-03d2-4f16-a7c8-0659784b53b9" />
+  
+  - 높이는 두 개씩 쪼갤 때를 의미하고 너비는 정복하는 부분을 의미한다고 생각된다.
+    
+3. 조합: 정렬된 부분 배열을 하나의 배열로 다시 병합한다.
+
+---
+
+```js
+// 병합(merge) 수행 함수
+function merge(arr, left, mid, right) {
+  let i = left;
+  let j = mid + 1;
+  let k = left; // 결과 배열의 인덱스
+  let sorted = []; // 정렬된 결과를 임시로 저장할 배열
+
+  // 두 배열을 비교하여 정렬
+  while (i <= mid && j <= right) {
+    if (arr[i] <= arr[j]) sorted[k++] = arr[i++];
+    else sorted[k++] = arr[j++];
+  }
+
+  // 왼쪽 배열에 대한 처리가 다 끝난 경우
+  if (i > mid) {
+    for (; j <= right; j++) sorted[k++] = arr[j];
+  }
+  // 오른쪽 배열에 대한 처리가 다 끝난 경우
+  else {
+    for (; i <= mid; i++) sorted[k++] = arr[i];
+  }
+
+  // 정렬된 배열 결과를 원본 배열에 반영하기
+  for (let x = left; x <= right; x++) {
+    arr[x] = sorted[x];
+  }
+}
+
+function mergeSort(arr, left, right) {
+  if (left < right) {
+    let mid = Math.floor((left + right) / 2);
+
+    // 왼쪽과 오른쪽을 재귀적으로 정렬
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+
+    // 정렬된 두 부분 배열을 병합
+    merge(arr, left, mid, right);
+  }
+}
+
+// 예제
+let arr = [38, 27, 43, 3, 9, 82, 10];
+mergeSort(arr, 0, arr.length - 1);
+console.log(arr); // 출력: [3, 9, 10, 27, 38, 43, 82]
+
+
+```
+
+## 5) JS 정렬 라이브러리
+
+- JS에서는 배열에 포함된 데이터를 정렬하는 sort() 함수를 제공한다.
+- 최악의 경우 시간 복잡도 O(NlogN)을 보장한다.
+- 알고리즘 및 코딩 테스트 문제를 해결할 때 정렬 기능이 필요하다면, 단순히 sort() 함수를 사용하는 것을 권장한다.
+- 만약, sort()함수의 사용이 제한된다면, 병합 정렬과 같은 알고리즘을 직접 구현해 사용하자.
+
+`arr.sort(compareFuction);`
+
+compareFuction => 정렬 기준을 정해주는 함수
+
+두 개의 원소 a,b를 입력으로 받는다.
+
+1. 반환 값이 0보다 작은 경우 -> a가 우선순위가 높아, 앞에 위치한다.
+2. 반환 값이 0보다 큰 경우 -> b가 우선순위가 높아, 앞에 위치한다.
+3. 반환 값이 0인 경우 -> a와b의 순서를 변경하지 않는다.
+
+정렬 기준 함수를 사용하지 않으면 각 원소는 문자열로 취급된다. => 유니코드 값 순서대로 정렬된다.
+
+<img width="599" alt="image" src="https://github.com/user-attachments/assets/c096d3b2-5dd5-44e3-a08f-f04ec57b0c0d" />
+
+
 ---
 > 나동빈 강사님의 [UPSKILL : Javascript 코딩테스트 131개 예제 & CS 지식으로 끝내기]를 듣고 정리한 내용입니다.
