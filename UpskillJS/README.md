@@ -173,10 +173,33 @@ Big-O 표기법 - 특정한 알고리즘이 얼마나 효율적인지 수치적�
 
 각각 근처의 노드와 연결되어 있는 경우가 많으므로, 간선 개수가 적어 인접 리스트가 유리하다.
    
+# Ch 03. JS정렬(sorting) 알고리즘
 
-  
+## 1) 선택 정렬
 
+- 매 단계에서 가장 작은 원소를 선택해 앞으로 보내는 정렬
+- 앞으로 보내진 원소는 더 이상 위치가 변경되지 않는다.
+- 매 단계에서 가장 작은 것을 선택하는 데에 약 N번의 연산이 필요하다.(선형 탐색)
+- 결과적으로 약 N개의 단계를 거친다는 점에서 최악의 경우 O(N^2)의 시간 복잡도를 가진다.
+- 시간 복잡도 O(N^2)로 비효율적인 정렬 알고리즘 중 하나다.
 
+```js
+// 선택 정렬 함수
+function selectionSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let minIndex = i; // 가장 작은 원소의 인덱스
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[minIndex] > arr[j]) {
+        minIndex = j;
+      }
+    }
+    // 스왑 (swap)
+    let temp = arr[i];
+    arr[i] = arr[minIndex];
+    arr[minIndex] = temp;
+  }
+}
+```
 
 ---
 > 나동빈 강사님의 [UPSKILL : Javascript 코딩테스트 131개 예제 & CS 지식으로 끝내기]를 듣고 정리한 내용입니다.
