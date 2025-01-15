@@ -89,6 +89,37 @@ Big-O 표기법 - 특정한 알고리즘이 얼마나 효율적인지 수치적�
 
 ## 큐
 
+```js
+class Queue {
+  constructor() {
+    this.items = {};
+    this.headIndex = 0;
+    this.tailIndex = 0;
+  }
+
+  enqueue(item) {
+    this.items[this.tailIndex] = item;
+    this.tailIndex++;
+  }
+
+  dequeue() {
+    const item = this.items[this.headIndex];
+    delete this.items[this.headIndex];
+    this.headIndex++;
+    return item;
+  }
+
+  peek() {
+    return this.items[this.headIndex];
+  }
+
+  getLength() {
+    return this.tailIndex - this.headIndex;
+  }
+}
+
+```
+
 ### 연결 리스트로 큐 구현하기
 
 - 삽입과 삭제에 있어서 O(1)을 보장할 수 있다.
