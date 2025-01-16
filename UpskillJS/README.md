@@ -389,6 +389,16 @@ compareFuction => 정렬 기준을 정해주는 함수
 
 <img width="599" alt="image" src="https://github.com/user-attachments/assets/c096d3b2-5dd5-44e3-a08f-f04ec57b0c0d" />
 
+## 6) 추가 사항
+
+JS의 sort 메서드는 JS 엔진마다 다르게 구현되어 있는데 V8엔진(크롬, Node.js)에서는 Timsort라는 정렬 알고리즘을 사용한다.
+
+Timsort는 데이터가 이미 정렬되어 있거나 부분적으로 정렬된 경우 매우 빠르게 작동하는 알고리즘이다.
+
+최선의 경우: O(n) = 데이터가 이미 정렬되어 있을 때
+평균 및 최악의 경우: O(nlogn)
+
+JS로 알고리즘 풀이를 할 때에는 보통 sort를 많이 사용하기 때문에 시간 복잡도 측면에서 알고리즘 성능을 고려해 풀이하자~
 
 ---
 > 나동빈 강사님의 [UPSKILL : Javascript 코딩테스트 131개 예제 & CS 지식으로 끝내기]를 듣고 정리한 내용입니다.
