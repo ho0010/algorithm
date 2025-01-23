@@ -1,24 +1,29 @@
-function solution(citations) {
-  var answer = 0;
-  const maxNum = Math.max(...citations);
+let fs = require('fs');
+let input = fs.readFileSync('/dev/stdin').toString().split('\n');
 
-  for (let i = 1; i < maxNum; i++) {
-    let count = 0;
+let N = Number(input[0]);
+let balloons = input[1].split(' ').map(Number);
 
-    for (let j = 0; j < citations.length; j++) {
-      if (citations[j] >= i) {
-        count++;
-      }
-    }
-    if (count >= i) {
-      answer = i;
+let arrows = [];
+let answer = 0;
+
+for (let h of balloons) {
+  let found = false;
+
+  // 현재 풍선을 터뜨릴 수 있는 화살 찾기
+  for (let i = 0; i < arrows.length; i++) {
+    if (arrows[i] === h) {
+      arrows[i]--; // 해당 화살의 높이를 감소
+      found = true;
+      break;
     }
   }
 
-  return answer;
+  if (!found) {
+    // 기존 화살로 터뜨릴 수 없으면 새 화살 추가
+    arrows.push(h - 1);
+    answer++;
+  }
 }
 
-solution([3, 0, 6, 1, 5]);
-
-// citations 배열에 있는 값 중 가장 큰 값까지 검사해야함
-// 기본값을 0으로 주고 1부터 시작해서 조건을 만족하지 못하는 경우가 있을 때 멈추면 됨
+console.log(answer);
