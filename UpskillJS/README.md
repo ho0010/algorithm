@@ -443,6 +443,47 @@ Map 객체는 키-값 형태로 이루어져있으며 또한 중복 키를 허�
 
 거스름 돈 문제의 해결 포인트가 배수관계에 있었던 것처럼 주어진 화폐의 단위가 서로 배수 관계이기 때문에 그리디 알고리즘으로 문제를 해결할 수 있음
 
+# Ch 05. JS 이진 탐색 알고리즘
+
+## 이진 탐색 알고리즘 이해하기
+
+**순차 탐색: 앞에서부터 하나씩 확인 O(N)**
+
+**이진 탐색: 탐색 범위를 절반씩 좁혀가며 확인 O(logN)**
+
+<img width="586" alt="image" src="https://github.com/user-attachments/assets/4f9987e7-6ae8-4553-9e11-0995a54d3b40" />
+
+### 이진 탐색 문제 유형의 대표적인 사례
+
+1. 매우 넓은 (억 단위 이상) 탐색 범위에서 최적의 해를 찾아야 하는 경우
+2. 데이터를 정렬한 뒤에 다수의 쿼리를 날려야 하는 경우
+
+<img width="586" alt="image" src="https://github.com/user-attachments/assets/6d9c7063-7331-4deb-b3fb-f33f053e5803" />
+
+<img width="586" alt="image" src="https://github.com/user-attachments/assets/c7753ba0-632c-4c51-8927-390885fc34fb" />
+
+##  정렬된 배열에서 특정한 값을 가지는 원소의 개수 구하기
+
+- 정렬된 배열에서 값이 특정 범위에 해당하는 원소의 개수를 계산하는 경우가 종종 있다.
+- 이때, lowerBound() 함수와 upperBound() 함수를 사용할 수 있다.
+- countByRange()
+
+<img width="661" alt="image" src="https://github.com/user-attachments/assets/85631bcb-59ba-4ac1-9f0c-b0ee9b1a8a58" />
+
+<img width="576" alt="image" src="https://github.com/user-attachments/assets/f71161b1-1b8c-4165-99dc-3dd5bfaff837" />
+
+<img width="592" alt="image" src="https://github.com/user-attachments/assets/43a05c9a-91b6-467e-926d-7593d009c96d" />
+
+## 파라메트릭 서치 이해하기
+
+<img width="645" alt="image" src="https://github.com/user-attachments/assets/cc8d7b65-c48c-4c7b-ae75-f410397ac4c0" />
+
+- 최적화 문제를 결정 문제(yes of no)로 바꾸어 해결하는 기법이다. ( ex) 특정한 조건을 만족하는 가장 알맞은 값을 빠르게 찾는 최적화 문제
+- 일반적으로 코딩 테스트에서 파라메트릭 서치 문제는 이진 탐색을 이용해 해결할 수 있다. 
+
+
+
+
 
 ---
 > 나동빈 강사님의 [UPSKILL : Javascript 코딩테스트 131개 예제 & CS 지식으로 끝내기]를 듣고 정리한 내용입니다.
