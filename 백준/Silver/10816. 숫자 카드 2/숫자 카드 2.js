@@ -5,20 +5,37 @@ const N = Number(input[0]);
 const myCardArr = input[1].split(' ').map(Number);
 const M = Number(input[2]);
 const targetCardArr = input[3].split(' ').map(Number);
-let myCardCount = {};
+
+const lowerBound = (arr, target, start, end) => {
+  while (start < end) {
+    let mid = Math.floor((start + end) / 2);
+    if (arr[mid] >= target) end = mid;
+    else start = mid + 1;
+  }
+  return end;
+};
+
+const upperBound = (arr, target, start, end) => {
+  while (start < end) {
+    let mid = Math.floor((start + end) / 2);
+    if (arr[mid] > target) end = mid;
+    else start = mid + 1;
+  }
+  return end;
+};
+
+const countByRange = (arr, leftValue, rightValue) => {
+  let rightIndex = upperBound(arr, rightValue, 0, arr.length);
+  let leftIndex = lowerBound(arr, leftValue, 0, arr.length);
+
+  return rightIndex - leftIndex;
+};
 
 myCardArr.sort((a, b) => a - b);
 
-myCardArr.forEach((item) => {
-  if (myCardCount[item]) {
-    myCardCount[item] += 1;
-  } else myCardCount[item] = 1;
-});
-
-let answer = targetCardArr.map((item) => myCardCount[item] || 0);
-
-console.log(answer.join(' '));
-
-// mycard를 정렬시키고 값과 개수를 담은 배열 생성
-// 배열에서 해당 값 찾아서 출력
-// 값 출력할때 이진탐색 적용?
+let answer = '';
+for (let i = 0; i < M; i++) {
+  let cnt = countByRange(myCardArr, targetCardArr[i], targetCardArr[i]);
+  answer += cnt + ' ';
+}
+console.log(answer);
