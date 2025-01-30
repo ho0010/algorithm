@@ -1,29 +1,30 @@
 let fs = require('fs');
 let input = fs.readFileSync('/dev/stdin').toString().split('\n');
 
-let N = Number(input[0]);
-let balloons = input[1].split(' ').map(Number);
+let n = Number(input[0]);
+let queens = [];
 
-let arrows = [];
-let answer = 0;
-
-for (let h of balloons) {
-  let found = false;
-
-  // 현재 풍선을 터뜨릴 수 있는 화살 찾기
-  for (let i = 0; i < arrows.length; i++) {
-    if (arrows[i] === h) {
-      arrows[i]--; // 해당 화살의 높이를 감소
-      found = true;
-      break;
-    }
+// 해당 위치에 퀸을 놓을 수 있는지 확인
+function possible(x, y) {
+  for (let [a, b] of queens) {
+    if (a == x || b == y) return false;
+    if (Math.abs(a - x) == Math.abs(b - y)) return false;
   }
-
-  if (!found) {
-    // 기존 화살로 터뜨릴 수 없으면 새 화살 추가
-    arrows.push(h - 1);
-    answer++;
-  }
+  return true;
 }
 
-console.log(answer);
+let cnt = 0;
+function dfs(row) {
+  if (row == n) cnt += 1; // 퀸을 N개 배치 가능한 경우 카운트
+  // 현재 행에 존재하는 열을 하나씩 확인
+  for (let i = 0; i < n; i++) {
+    if (!possible(row, i)) continue; // 현재 위치에 놓을 수 없다면 continue
+    queens.push([row, i]);
+    dfs(row + 1);
+    queens.pop(); // 현재 위치에서 퀸 제거
+  }
+}
+dfs(0);
+console.log(cnt);
+
+// 강의
