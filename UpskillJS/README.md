@@ -516,5 +516,8 @@ Map 객체는 키-값 형태로 이루어져있으며 또한 중복 키를 허�
   1. 같은 행에 있는지 체크, 같은 열에 있는지 체크
   2. 대각선에 있는지 체크
 
+<img width="608" alt="image" src="https://github.com/user-attachments/assets/a1c1f720-4f85-49fc-b4e8-b256544838ff" />
+
+
 ---
 > 나동빈 강사님의 [UPSKILL : Javascript 코딩테스트 131개 예제 & CS 지식으로 끝내기]를 듣고 정리한 내용입니다.
