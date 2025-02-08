@@ -518,6 +518,71 @@ Map 객체는 키-값 형태로 이루어져있으며 또한 중복 키를 허�
 
 <img width="608" alt="image" src="https://github.com/user-attachments/assets/a1c1f720-4f85-49fc-b4e8-b256544838ff" />
 
+# Ch 07. JS DFS 알고리즘
+
+## DFS 알고리즘 이해하기
+
+### DFS와 BFS
+
+- 탐색(Search)이란 많은 양의 데이터 중에서 원하는 데이터를 찾는 과정을 말한다.
+- 대표적인 그래프 탐색 알고리즘으로는 DFS와 BFS가 있다.
+- DFS와 BFS는 코딩 테스트에서 매우 자주 등장하는 유형이므로 반드시 숙지할 필요가 있다.
+
+### 스택 자료구조
+
+- FILO
+
+<img width="558" alt="image" src="https://github.com/user-attachments/assets/8844d18e-cb9c-4cae-a9c4-76ed95a46b79" />
+
+### 그래프의 표현
+
+<img width="558" alt="image" src="https://github.com/user-attachments/assets/bb8fe3f3-6657-4947-bba1-7b42e0f2ea15" />
+
+### 깊이 우선 탐색(DFS)이란?
+
+- 그래프 혹은 트리에서 모든 노드를 한 번씩 탐색하기 위한 기본적인 방법이다.
+- [완전 탐색]을 수행하기 위해 사용할 수 있는 가장 간단한 방법 중 하나다.
+- 스택(Stack) 자료구조를 이용한다.
+
+### DFS 기본 동작 방식
+
+1. 시작 노드를 스택에 넣고 [방문 처리]한다.
+2. 스택에 마지막으로 들어 온 노드에 방문하지 않은 인접 노드가 있는지 확인한다.
+  - 있다면, 방문하지 않은 인접 노드를 스택에 삽입하고 [방문 처리]한다.
+  - 없다면, 현재 노드(스택에 마지막으로 들어 온 노드)를 스택으로 추출한다.
+3. 2번 과정을 더 이상 반복할 수 없을 때까지 반복한다.
+
+### DFS 구현 특징
+
+- DFS를 실제로 구현할 때는 스택 혹은 재귀 함수를 이용한다.
+  - 재귀 함수는 내부적으로 스택과 동일한 동작 원리를 가지므로, 구현의 편리성이 존재한다.
+- 완전 탐색을 목적으로 하는 경우, 탐색 속도가 BFS보다 느린 경향이 있다.
+- 그럼에도 구현의 편리성 때문에 BFS 대신에 사용하는 경우 또한 많다.
+
+### DFS 사용 예시
+
+1. 더 짧은 코드로 간결히 구현해야 하는 경우
+2. 큐 라이브러리를 사용할 수 없는 경우
+3. 트리의 순회, 점화식 구현 등 DFS(재귀 구조)에 특화된 문제인 경우
+4. 트리에서 최단 거리 탐색을 구하는 경우
+   - 트리에서는 두 노드를 잇는 경로가 하나만 존재한다.
+
+### DFS 기본 동작 방식
+
+<img width="630" alt="image" src="https://github.com/user-attachments/assets/c5620c70-6cab-45ec-942d-b037e5c3275c" />
+
+<img width="630" alt="image" src="https://github.com/user-attachments/assets/0082fe7a-a279-4d50-85ea-16bbcc08bb2a" />
+
+<img width="630" alt="image" src="https://github.com/user-attachments/assets/59501ed1-87b3-4b5c-b9ac-18a6e61c61ba" />
+
+<img width="626" alt="image" src="https://github.com/user-attachments/assets/f321cfa6-f657-4a92-974f-2e206ef70825" />
+
+### DFS를 활용한 완전 탐색
+
+- 흔히 DFS는 모든 노드를 [완전 탐색]하기 위한 방법으로 사용된다.
+- 완전 탐색 알고리즘에서는 기본적으로 각 노드 및 간선에 대해 한번씩 확인하도록 한다.
+- DFS를 응용해 모든 경우의 수를 계산하기 위한 백트래킹 알고리즘으로 사용할 수 있다.
+  -> 백트래킹에 비해 기본적인 형태의 DFS는 그 코드 예시가 간단하다.
 
 ---
 > 나동빈 강사님의 [UPSKILL : Javascript 코딩테스트 131개 예제 & CS 지식으로 끝내기]를 듣고 정리한 내용입니다.
