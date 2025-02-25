@@ -31,6 +31,7 @@ const dfs = (index) => {
 
 dfs(deletedNum);
 
+// 부모 노드에서 삭제된 자식 제거
 if (parentArr[deletedNum] !== -1) {
   let parent = parentArr[deletedNum];
   listArr[parent] = listArr[parent].filter((child) => child !== deletedNum);
