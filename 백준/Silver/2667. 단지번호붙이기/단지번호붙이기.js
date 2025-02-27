@@ -41,3 +41,6 @@ for (let i = 0; i < N; i++) {
 
 console.log(answer);
 countArr.sort((a, b) => a - b).forEach((count) => console.log(count));
+
+// houseArr만 입력받는게 아니라 전체를 입력받아서 차라리 나중에 for문 할때 편리하게 처리할 수 있다.
+// count 처리에 유의해야함 for문에서 count를 선언해서 dfs로 매개변수를 던지더라도 원본이 수정되지 않아서 의도대로 작동하지 않을 수 있다.
