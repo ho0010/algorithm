@@ -1,76 +1,52 @@
+// N
 let fs = require('fs');
 let input = fs.readFileSync('/dev/stdin').toString().split('\n');
+let T = Number(input[0]);
 
-let N = Number(input[0]);
+const termProject = (studentArr, n) => {
+  let visitedArr = new Array(n + 1).fill(false);
+  let finishedArr = new Array(n + 1).fill(false);
+  let count = 0;
 
-let houseArr = [];
-let countArr = [];
-let visitedArr = Array.from({ length: N }, () => Array(N).fill(false));
-let answer = 0;
+  const dfs = (cur) => {
+    visitedArr[cur] = true;
+    let next = studentArr[cur];
 
-// 집 좌표 저장
-for (let i = 0; i < N; i++) {
-  let row = input[i + 1].split(' ').map(Number);
+    if (!visitedArr[next]) {
+      dfs(next);
+    } else if (!finishedArr[next]) {
+      let temp = next;
+      while (temp !== cur) {
+        count++;
+        temp = studentArr[temp];
+      }
+      count++;
+    }
 
-  for (let j = 0; j < N; j++) {
-    visitedArr[i][j] = true;
-    if (row[j] === 1) {
-      houseArr.push([i, j]);
-      visitedArr[i][j] = false;
+    finishedArr[cur] = true;
+  };
+  for (let i = 1; i <= n; i++) {
+    if (!visitedArr[i]) {
+      dfs(i);
     }
   }
-}
 
-const dfs = (x, y) => {
-  if (visitedArr[x][y]) {
-    return;
-  }
-  visitedArr[x][y] = true;
-  let count = 1;
-
-  if (x + 1 < N) {
-    if (!visitedArr[x + 1][y]) {
-      count += dfs(x + 1, y);
-    }
-  }
-  if (x - 1 >= 0) {
-    if (!visitedArr[x - 1][y]) {
-      count += dfs(x - 1, y);
-    }
-  }
-  if (y + 1 < N) {
-    if (!visitedArr[x][y + 1]) {
-      count += dfs(x, y + 1);
-    }
-  }
-  if (y - 1 >= 0) {
-    if (!visitedArr[x][y - 1]) {
-      count += dfs(x, y - 1);
-    }
-  }
-  return count;
+  console.log(n - count);
 };
 
-for (let [x, y] of houseArr) {
-  if (visitedArr[x][y]) continue;
+for (let i = 1; i < T * 2; i += 2) {
+  let n = Number(input[i]);
+  let studentArr = [, ...input[i + 1].split(' ').map(Number)];
 
-  let count = dfs(x, y);
-
-  if (count > 0) {
-    answer++;
-    countArr.push(count);
-  }
+  termProject(studentArr, n);
 }
 
-console.log(answer);
+// 어느 프로젝트 팀에도 속하지 않는 학생들의 수
+// 처음 생각한 로직 => startIndex랑 targetIndex를 관리해서 두 배열이 같으면 사이클 형성으로 간주
+// 위 로직의 문제점 => 사이클을 검출하는 방식이 옳지 못함
 
-countArr.sort((a, b) => a - b).forEach((count) => console.log(count));
+// 새로운 로직
+// path에 curIdx의 값이 있으면 사이클이 생겼다고 간주함 => cycleStartIndex를 찾아서 지나온 값들을 삽입
 
-// 13:55~
-// 집 좌표들을 배열에 입력
-// 선택한 좌표의 근처에 다른 집이 있는지 확인하는 로직
-// visited가 필요
-// 일단 한번이라도 거치면 visited가 되는거임
-// 하나에 들어가서 주위에 집 있으면 계속 실행하다가
-// 주위에 집이 없으면 visited가 아닌 다른 집에서 다시 시작하면 됨
-// 아이패드 끄적끄적 ++
+// 메모리 초과
+// 논리적으로는 문제가 없는데 DFS로 풀어야함.....
