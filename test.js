@@ -1,52 +1,46 @@
-// N
 let fs = require('fs');
-let input = fs.readFileSync('/dev/stdin').toString().split('\n');
-let T = Number(input[0]);
+let input = fs.readFileSync('/dev/stdin').toString().trim().split(' ');
 
-const termProject = (studentArr, n) => {
-  let visitedArr = new Array(n + 1).fill(false);
-  let finishedArr = new Array(n + 1).fill(false);
-  let count = 0;
+let N = Number(input[0]);
+let arr = [null];
 
-  const dfs = (cur) => {
-    visitedArr[cur] = true;
-    let next = studentArr[cur];
-
-    if (!visitedArr[next]) {
-      dfs(next);
-    } else if (!finishedArr[next]) {
-      let temp = next;
-      while (temp !== cur) {
-        count++;
-        temp = studentArr[temp];
-      }
-      count++;
-    }
-
-    finishedArr[cur] = true;
-  };
-  for (let i = 1; i <= n; i++) {
-    if (!visitedArr[i]) {
-      dfs(i);
-    }
-  }
-
-  console.log(n - count);
-};
-
-for (let i = 1; i < T * 2; i += 2) {
-  let n = Number(input[i]);
-  let studentArr = [, ...input[i + 1].split(' ').map(Number)];
-
-  termProject(studentArr, n);
+for (let i = 1; i <= N; i++) {
+  arr.push(Number(input[i]));
 }
 
-// 어느 프로젝트 팀에도 속하지 않는 학생들의 수
-// 처음 생각한 로직 => startIndex랑 targetIndex를 관리해서 두 배열이 같으면 사이클 형성으로 간주
-// 위 로직의 문제점 => 사이클을 검출하는 방식이 옳지 못함
+let visitedArr = new Array(N + 1).fill(false);
+let finishedArr = new Array(N + 1).fill(false);
+let cycleArr = [];
 
-// 새로운 로직
-// path에 curIdx의 값이 있으면 사이클이 생겼다고 간주함 => cycleStartIndex를 찾아서 지나온 값들을 삽입
+const dfs = (idx) => {
+  cycleArr.push(idx);
 
-// 메모리 초과
-// 논리적으로는 문제가 없는데 DFS로 풀어야함.....
+  let next = arr[idx];
+
+  if (visitedArr[next]) {
+    if (!finishedArr[next]) {
+      // 사이클 arr에 있는 idx들을 finishedArr에 삽입
+      return finishedArr;
+    } else {
+      return 0;
+    }
+  }
+  visitedArr[next] = true;
+
+  dfs(next);
+  visitedArr[idx] = false;
+  // visitedArr 부분을 좀더 생각..
+  // startIdx도 생각해야함
+};
+
+for (let i = 1; i <= N; i++) {
+  cycleArr = [];
+  visitedArr[i] = true;
+  dfs(i);
+}
+
+// 개수가 최대일 경우의 수, output =  뽑힌 정수들의 개수, 작은수부터 큰수 순서로
+// 단순히 생각하면 뽑힌 인덱스와 그 값의 배열이 일치하면 되는데 => 텀 프로젝트 문제에서 이렇게 했다가 메모리 초과 났음(즉, 효율적인 방식이 아님)
+
+// target 인덱스로 사이클을 형성한다고 생각할 수 있을 것 같음
+// 자기 자신을 가르키는 경우 또한 포함됨
