@@ -5,9 +5,11 @@ let myArr = input[2].split(' ').map(Number);
 
 const mySet = new Set(myArr);
 
-let answer = tgArr.filter((n) => !mySet.has(n));
+let answer = [];
 
-answer.sort((a, b) => a - b);
+tgArr.map((n) => (mySet.has(n) ? 1 : answer.push(n)));
+
+answer.sort((a,b) => a-b );
 
 console.log(answer.length);
 if (answer.length > 0) {
